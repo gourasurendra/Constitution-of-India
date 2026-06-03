@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Constitution of India</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet"  href="style.css" >
+</head>
+
+
+<body>
+
+ 
+
+
+<!-- ══ ORIGINAL HEADER PRESERVED ══ -->
+<header class="hero">
+  <div class="tricolor"><div class="tricolor-s"></div><div class="tricolor-w"></div><div class="tricolor-g"></div></div>
+  <div class="hero-inner">
+    <div class="chakra-wrap">
+      <div class="chakra-ring">
+        <div class="chakra-spokes">
+          <div class="spoke" style="transform:rotate(0deg)"></div>
+          <div class="spoke" style="transform:rotate(30deg)"></div>
+          <div class="spoke" style="transform:rotate(60deg)"></div>
+          <div class="spoke" style="transform:rotate(90deg)"></div>
+          <div class="spoke" style="transform:rotate(120deg)"></div>
+          <div class="spoke" style="transform:rotate(150deg)"></div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-text">
+      <div class="hero-eyebrow">भारत का संविधान &nbsp;·&nbsp; Enacted 26 November 1949</div>
+      <h1 class="hero-title">Constitution of <em>India</em></h1>
+      <p class="hero-sub">The supreme law of the land — as amended through the 106th Amendment Act, 2023</p>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-num">429</div><div class="hstat-lbl">Articles</div></div>
+      <div class="hstat"><div class="hstat-num">25</div><div class="hstat-lbl">Parts</div></div>
+      <div class="hstat"><div class="hstat-num">12</div><div class="hstat-lbl">Schedules</div></div>
+      <div class="hstat"><div class="hstat-num">106</div><div class="hstat-lbl">Amendments</div></div>
+    </div>
+  </div>
+</header>
+
+
+
+
+<!-- ══ NEW CONTROLS BAR ══ -->
+
+
+<div class="controls-bar">
+  <div class="controls">
+
+    <div class="search-box">
+      <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="searchInput" type="text" placeholder="Search by article number, title or keyword…" oninput="doSearch()">
+    </div>
+    
+    
+    <select id="partSel" onchange="filterByPart(this.value)">
+      <option value="">All Parts</option>
+    </select>
+
+    <div class="view-toggle">
+      <button class="vbtn active" id="vg" onclick="setView('grid')">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>Grid
+      </button>
+      <button class="vbtn" id="vl" onclick="setView('list')">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>List
+      </button>
+    </div>
+
+    <button class="vbtn" id="themeBtn" onclick="toggleTheme()" style="border: 1.5px solid var(--c-border); border-radius: 7px; background: var(--c-surface);">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg> Dark
+    </button>
+
+   <div class="res-badge" id="resBadge">429 articles</div> 
+  </div>
+</div>
+
+
+
+
+
+
+
+<!-- ══ LAYOUT ══ -->
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sb-head">Browse by Part</div>
+    <div id="sidebarList"></div>
+  </aside>
+  <main class="content">
+    <div class="part-banner" id="partBanner" data-roman="ALL"
+      style="border-color:var(--c-border2);">
+      <div class="banner-pill" style="background:rgba(45,90,61,0.1);color:var(--c-forest);border-color:rgba(45,90,61,0.25);">All Parts</div>
+      <div class="banner-info">
+        <h2>Complete Constitution</h2>
+        <p>429 extracted articles across all 22 Parts</p>
+      </div>
+    </div>
+    <div id="grid"></div>
+    <div class="no-results" id="noRes">
+      <h3>Nothing found</h3>
+      <p>Try a different search or select another part.</p>
+    </div>
+  </main>
+</div>
+
+
+<!-- ══ MODAL ══ -->
+<div class="overlay" id="overlay" onclick="overlayClick(event)">
+  <div class="modal">
+    <div class="modal-strip" id="mStrip"></div>
+    <div class="modal-header">
+      <div class="modal-num" id="mNum"></div>
+      <div class="modal-meta">
+        <div class="modal-part-line" id="mPart"></div>
+        <div class="modal-title" id="mTitle"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-text" id="mContent"></div>
+    </div>
+    <div class="modal-footer">
+      <div style="display:flex;gap:8px;">
+        <button class="mnav-btn" id="mPrev" onclick="navModal(-1)">← Prev</button>
+        <button class="mnav-btn" id="mNext" onclick="navModal(1)">Next →</button>
+      </div>
+      <div class="modal-pos" id="mPos"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Floating Translator Button -->
+<div id="floating_translator_container">
+  <div class="google_translate_element_floating">
+    <!-- The visible button -->
+    <div class="translate-btn-visual">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+      <span>Translate</span>
+    </div>
+    <!-- The hidden Google dropdown that catches the click -->
+    <div id="google_translate_element_floating"></div>
+  </div>
+</div>
+
+<button id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+
+
+
+
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script src="script.js"></script>
+</body>
+</html>
