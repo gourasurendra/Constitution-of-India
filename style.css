@@ -321,11 +321,6 @@ mark { background: var(--accent); color: #FFF; border-radius: 4px; padding: 0 4p
   #grid { grid-template-columns:1fr; }
 }
 
-
-
-
-
-
 /* ═══════════════════════════════
    GOOGLE TRANSLATE WIDGET STYLING
 ═══════════════════════════════ */
@@ -334,21 +329,42 @@ mark { background: var(--accent); color: #FFF; border-radius: 4px; padding: 0 4p
   align-items: center;
 }
 #google_translate_element select {
+  width: 60px;              /* same as arrow */
+  height: 60px;             /* same as arrow */
   background: var(--surface2); 
   border: 1px solid transparent; 
-  border-radius: 100px;
-  padding: 8px 32px 8px 16px; 
-  font-size: 0.85rem; 
+  border-radius: 50%;       /* perfect circle */
+
+  padding: 0;               /* remove stretch */
+  font-size: 16px; 
   color: var(--c-ink); 
   font-weight: 600;
+
   cursor: pointer; 
   transition: all 0.2s;
+
   appearance: none; 
   -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2386868B' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; 
-  background-position: right 12px center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-position: center;  /* center icon */
 }
+
+@keyframes floatUpDown {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+
+#google_translate_element select:hover,
+#toTop:hover {
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+}
+
 #google_translate_element select:focus { 
   background: var(--c-bg); 
   border-color: var(--accent); 
@@ -363,9 +379,6 @@ body { top: 0px !important; }
 .goog-te-gadget span { display: none; }
 .goog-logo-link { display: none !important; }
 .goog-te-banner-frame.skiptranslate { display: none !important; }
-
-
-
 
 /* ═══════════════════════════════
    BULLETPROOF TRANSLATOR BUTTON
@@ -404,17 +417,6 @@ body { top: 0px !important; }
   background-repeat: no-repeat; 
   background-position: right 10px center;
 }
-
-/* Hide Google Branding */
-.skiptranslate iframe { display: none !important; }
-body { top: 0px !important; }
-.goog-te-gadget { color: transparent !important; font-size: 0px; }
-.goog-te-gadget .goog-te-combo { margin: 0; }
-.goog-te-gadget span { display: none; }
-.goog-logo-link { display: none !important; }
-.goog-te-banner-frame.skiptranslate { display: none !important; }
-
-
 
 #google_translate_element_floating {
   position: absolute;
